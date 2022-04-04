@@ -6,7 +6,7 @@ import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 
 /**
- * Retry configuration for {@link RetryJdbcConnectionTask}.
+ * Retry configuration for {@link RetryJdbcConnection}.
  *
  * @author noavarice
  * @since 1.0.0

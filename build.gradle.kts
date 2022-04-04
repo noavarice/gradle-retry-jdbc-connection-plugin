@@ -3,6 +3,20 @@ plugins {
   idea
 }
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
+gradlePlugin {
+  plugins {
+    create("retryJdbcConnectionPlugin") {
+      id = "com.github.noavarice.retry-jdbc-connection-plugin"
+      implementationClass = "com.github.noavarice.RetryJdbcConnectionPlugin"
+    }
+  }
+}
+
 group = "com.github.noavarice"
 version = "0.1.0"
 
@@ -11,8 +25,8 @@ repositories {
 }
 
 dependencies {
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+  testImplementation(libs.jupiter.api)
+  testRuntimeOnly(libs.jupiter.engine)
 }
 
 tasks.getByName<Test>("test") {

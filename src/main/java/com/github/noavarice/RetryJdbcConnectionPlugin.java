@@ -9,7 +9,7 @@ import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.tasks.TaskProvider;
 
 /**
- * Plugin that registers {@link RetryJdbcConnectionTask} to the {@link Project}.
+ * Plugin that registers {@link RetryJdbcConnection} to the {@link Project}.
  *
  * @author noavarice
  * @since 1.0.0
@@ -32,9 +32,9 @@ public class RetryJdbcConnectionPlugin implements Plugin<Project> {
   ) {
     final String configName = config.getName();
     final String taskName = "retryJdbcConnection" + capitalize(configName);
-    final TaskProvider<RetryJdbcConnectionTask> taskProvider = project
+    final TaskProvider<RetryJdbcConnection> taskProvider = project
         .getTasks()
-        .register(taskName, RetryJdbcConnectionTask.class, config, runtimeClasspath);
+        .register(taskName, RetryJdbcConnection.class, config, runtimeClasspath);
     taskProvider.configure(
         task -> {
           final String taskDesc = "Retries JDBC connection for " + configName;

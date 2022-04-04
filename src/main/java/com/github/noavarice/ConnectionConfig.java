@@ -3,7 +3,7 @@ package com.github.noavarice;
 import org.gradle.api.provider.Property;
 
 /**
- * JDBC connection configuration for {@link RetryJdbcConnectionTask}.
+ * JDBC connection configuration for {@link RetryJdbcConnection}.
  *
  * @author noavarice
  * @since 1.0.0

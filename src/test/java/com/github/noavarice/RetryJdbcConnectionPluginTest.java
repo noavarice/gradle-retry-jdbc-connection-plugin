@@ -26,12 +26,16 @@ import org.junit.jupiter.api.Test;
 class RetryJdbcConnectionPluginTest {
 
   @Test
-  void test() {
-    final File projectDir = createProjectDir("test-project.gradle.kts");
+  @DisplayName("Test retrying without running database")
+  void testWithoutRunningDatabase() {
+    final File projectDir = createProjectDir("/test-project.gradle.kts");
     final BuildResult buildResult = GradleRunner
         .create()
+        .withPluginClasspath()
         .withProjectDir(projectDir)
-        .build();
+        .withArguments(":retryJdbcConnectionMain")
+        .forwardOutput()
+        .buildAndFail();
 
     final BuildTask task = buildResult.task(":retryJdbcConnectionMain");
     assertNotNull(task);

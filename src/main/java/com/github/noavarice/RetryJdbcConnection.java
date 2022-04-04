@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.util.function.BooleanSupplier;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.GradleException;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.tasks.TaskAction;
@@ -17,14 +18,14 @@ import org.gradle.api.tasks.TaskAction;
  * @author noavarice
  * @since 1.0.0
  */
-public abstract class RetryJdbcConnectionTask extends DefaultTask {
+public abstract class RetryJdbcConnection extends DefaultTask {
 
   private final RetryJdbcConnectionPluginExtension config;
 
   private final FileCollection driverClasspath;
 
   @Inject
-  public RetryJdbcConnectionTask(
+  public RetryJdbcConnection(
       final ObjectFactory objects,
       final RetryJdbcConnectionPluginExtension config,
       final FileCollection driverClasspath
@@ -38,7 +39,10 @@ public abstract class RetryJdbcConnectionTask extends DefaultTask {
     validateInputs();
 
     final var connectionProperties = config.getConnection();
-    getLogger().quiet("Connecting to {} as {}", connectionProperties.getUrl(), connectionProperties.getUsername());
+    getLogger().quiet("Connecting to {} as {}",
+        connectionProperties.getUrl().get(),
+        connectionProperties.getUsername().get()
+    );
 
     final var retryProperties = config.getRetry();
     retrying(() -> tryConnect(connectionProperties), retryProperties);
@@ -117,6 +121,6 @@ public abstract class RetryJdbcConnectionTask extends DefaultTask {
       }
     }
 
-    getLogger().quiet("Failed to connect");
+    throw new GradleException("Failed to connect, stop retrying");
   }
 }

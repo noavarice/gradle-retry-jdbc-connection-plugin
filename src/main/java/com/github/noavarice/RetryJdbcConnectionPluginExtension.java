@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import org.gradle.api.model.ObjectFactory;
 
 /**
- * Configuration for {@link RetryJdbcConnectionTask}.
+ * Configuration for {@link RetryJdbcConnection}.
  *
  * @author noavarice
  * @since 1.0.0
